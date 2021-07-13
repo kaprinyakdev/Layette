@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
         listItems.setLayoutManager(layoutManager2);
 
         List<CategoryItem> categoryItemList = new ArrayList();
-            categoryItemList.add(new CategoryItem("Összes",R.drawable.ic_launcher_background));
+            categoryItemList.add(new CategoryItem("Összes",R.drawable.ic_launcher_foreground));
             categoryItemList.add(new CategoryItem("Új",R.drawable.ic_launcher_foreground));
-            categoryItemList.add(new CategoryItem("test3",R.drawable.ic_launcher_background));
+            categoryItemList.add(new CategoryItem("test3",R.drawable.ic_launcher_foreground));
 
         List<ListItem> listItemList = new ArrayList();
             listItemList.add(new ListItem("első",true));
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         listItems.setAdapter(itemListAdapter);
 
 
-        categoryListAdapter.onitem
+        //categoryListAdapter.onitem
 
     }
 }

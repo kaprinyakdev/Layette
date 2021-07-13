@@ -6,25 +6,42 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/categoryName"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="10dp"
+        app:cardBackgroundColor="@color/paperwhite"
+        app:cardCornerRadius="6dp">
 
-    <ImageView
-        android:id="@+id/categoryImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/categoryName"
-        app:layout_constraintStart_toStartOf="@+id/categoryName"
-        app:layout_constraintTop_toBottomOf="@+id/categoryName"
-        tools:srcCompat="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/categoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+        <ImageView
+            android:id="@+id/categoryImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/categoryName"
+            app:layout_constraintStart_toStartOf="@+id/categoryName"
+            app:layout_constraintTop_toBottomOf="@+id/categoryName"
+            tools:srcCompat="@tools:sample/avatars" />
+
+    </androidx.cardview.widget.CardView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
