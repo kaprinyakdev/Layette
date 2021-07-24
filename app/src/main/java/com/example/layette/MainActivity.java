@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ClipData;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.example.layette.Adapter.CategoryListAdapter;
 import com.example.layette.Adapter.ItemListAdapter;
 import com.example.layette.Model.CategoryItem;
@@ -54,20 +56,35 @@ public class MainActivity extends AppCompatActivity {
 
 
         List<ListItem> listItemList2 = new ArrayList();
-        listItemList2.add(new ListItem("első2",false));
-        listItemList2.add(new ListItem("második2",false));
-        listItemList2.add(new ListItem("harmadik2",false));
-        listItemList2.add(new ListItem("negyedik2",false));
+            listItemList2.add(new ListItem("első2",false));
+            listItemList2.add(new ListItem("második2",false));
+            listItemList2.add(new ListItem("harmadik2",false));
+            listItemList2.add(new ListItem("negyedik2",false));
 
 
-        CategoryListAdapter categoryListAdapter = new CategoryListAdapter(categoryItemList, this);
+        ItemListAdapter itemListAdapter2 = new ItemListAdapter(listItemList2, this);
+        ItemListAdapter itemListAdapter = new ItemListAdapter(listItemList, this);
+
+        CategoryListAdapter categoryListAdapter = new CategoryListAdapter(categoryItemList, this, new CategoryListAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(CategoryItem categoryItem) {
+                showToast(categoryItem.getCategoryName());
+                if (categoryItem.getCategoryName().equals("Összes")){
+                    listItems.setAdapter(itemListAdapter);
+                } else {
+                    listItems.setAdapter(itemListAdapter2);
+                }
+            }
+        });
         categoryItems.setAdapter(categoryListAdapter);
 
-        ItemListAdapter itemListAdapter = new ItemListAdapter(listItemList, this);
-        listItems.setAdapter(itemListAdapter);
+        //listItems.setAdapter(itemListAdapter);
 
 
-        //categoryListAdapter.onitem
 
+    }
+
+    private void showToast(String asd){
+        Toast.makeText(this,asd,Toast.LENGTH_LONG).show();
     }
 }

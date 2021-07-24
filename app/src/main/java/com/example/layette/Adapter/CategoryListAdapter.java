@@ -17,10 +17,12 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     private Context context;
     private List<CategoryItem> categoryItemList;
+    private ItemClickListener itemClickListener;
 
-    public CategoryListAdapter(List<CategoryItem> categoryItemList, Context context){
+    public CategoryListAdapter(List<CategoryItem> categoryItemList, Context context, ItemClickListener itemClickListener){
         this.context = context;
         this.categoryItemList = categoryItemList;
+        this.itemClickListener = itemClickListener;
     }
 
 
@@ -36,6 +38,10 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         CategoryItem categoryItem = categoryItemList.get(position);
         holder.categoryName.setText(categoryItem.getCategoryName());
         holder.categoryImage.setImageResource(categoryItem.getCategoryImage());
+        holder.itemView.setOnClickListener(view -> {
+                    itemClickListener.onItemClick(categoryItemList.get(position));
+                }
+        );
     }
 
     @Override
@@ -43,6 +49,9 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         return categoryItemList.size();
     }
 
+    public interface ItemClickListener{
+        void onItemClick(CategoryItem categoryItem);
+    }
 
     public static class CategoryListHolder extends RecyclerView.ViewHolder {
             protected TextView categoryName;
