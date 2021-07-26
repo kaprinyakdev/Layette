@@ -82,6 +82,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        /*
+
+            - kattintáskor a kijelölt alulra kerüljön
+            - valamilyen menürendszer
+            - adatbázis műveletek
+
+         */
+
+
     }
 
     private void showToast(String asd){
