@@ -1,13 +1,14 @@
 package com.example.layette.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import com.example.layette.Model.CategoryItem;
 import com.example.layette.Model.ListItem;
+import com.example.layette.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_CATEGORYITEM = "categoryitem";
     private static final String KEY_CATEGORYITEM_ID = "id";
     private static final String KEY_CATEGORYITEM_NAME = "name";
+    private static final String KEY_CATEGORYITEM_IMAGE = "image";
 
     private static final String TABLE_LISTITEM = "listitem";
     private static final String KEY_LISTITEM_ID = "id";
@@ -46,7 +48,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String create_categoryitem_table = "CREATE TABLE IF NOT EXISTS " + TABLE_CATEGORYITEM + "("
                 + KEY_CATEGORYITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-                + KEY_CATEGORYITEM_NAME + " TEXT"
+                + KEY_CATEGORYITEM_NAME + " TEXT,"
+                + KEY_CATEGORYITEM_IMAGE + " INTEGER "
                 +")";
         db.execSQL(create_categoryitem_table);
 
@@ -56,6 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + KEY_LISTITEM_CATEGORYITEMID + " INTEGER"
                 +")";
         db.execSQL(create_listitem_table);
+
     }
 
 
@@ -64,26 +68,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void addCategoryItem(String name, int image){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+            values.put(KEY_CATEGORYITEM_NAME, name);
+            values.put(KEY_CATEGORYITEM_IMAGE, image);
+        database.insert(TABLE_CATEGORYITEM,null,values);
+
+    }
+
+    public void addDefaultCategoryItem(){
+
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_CATEGORYITEM_ID,1);
+            values.put(KEY_CATEGORYITEM_NAME, "Összes");
+            values.put(KEY_CATEGORYITEM_IMAGE, R.drawable.ic_launcher_foreground);
+        database.insert(TABLE_CATEGORYITEM,null,values);
+
+    }
+
+    public void deleteCategoryItem(int categoryId){
+        /*SQLiteDatabase database = this.getWritableDatabase();
+        database.beginTransaction();
+        try {
+            database.delete(TABLE_BABY,KEY_BABY_ID + "=" + String.valueOf(id),null);
+            database.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.d("Babydata delete error", "Error while trying to delete all posts and users");
+        } finally {
+            database.endTransaction();
+        }*/
+    }
 
     public List<CategoryItem> getCategoryItemList(){
         List<CategoryItem> categoryItemList = new ArrayList<>();
 
-        /*
-        String query = String.format("SELECT * FROM %s",TABLE_BABY);
+        String query = String.format("SELECT * FROM %s",TABLE_CATEGORYITEM);
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(query, null);
         try {
             if(cursor.moveToFirst()) {
                 do {
-                    int id = cursor.getInt(cursor.getColumnIndex(KEY_BABY_ID));
-                    String name = cursor.getString(cursor.getColumnIndex(KEY_BABY_NAME));
-                    boolean isGirl = cursor.getString(cursor.getColumnIndex(KEY_BABY_GENDER)).matches("true");
-                    int weight = cursor.getInt(cursor.getColumnIndex(KEY_BABY_BIRTHWEIGHT));
-                    String date = cursor.getString(cursor.getColumnIndex(KEY_BABY_BIRTHDATE));
+                    int id = cursor.getInt(cursor.getColumnIndex(KEY_CATEGORYITEM_ID));
+                    String name = cursor.getString(cursor.getColumnIndex(KEY_CATEGORYITEM_NAME));
+                    int image = cursor.getInt(cursor.getColumnIndex(KEY_CATEGORYITEM_IMAGE));
 
-                    BabyCard babyItem = new BabyCard(id, name, date, weight, isGirl);
-                    babyList.add(babyItem);
-
+                    CategoryItem categoryItem = new CategoryItem(id, name, image);
+                    categoryItemList.add(categoryItem);
                 } while (cursor.moveToNext());
             }
         } catch (Exception e){
@@ -93,10 +126,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.close();
             }
         }
-        */
-
         return categoryItemList;
     }
+
+
+
 
     public List<ListItem> getListItemList(){
         List<ListItem> listItemList = new ArrayList<>();

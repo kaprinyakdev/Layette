@@ -4,12 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActivityOptions;
 import android.content.ClipData;
+import android.content.Intent;
+import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.layette.Adapter.CategoryListAdapter;
 import com.example.layette.Adapter.ItemListAdapter;
+import com.example.layette.Database.DatabaseHelper;
 import com.example.layette.Model.CategoryItem;
 import com.example.layette.Model.ListItem;
 
@@ -23,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView listItems;
     LinearLayoutManager layoutManager;
     LinearLayoutManager layoutManager2;
+    DatabaseHelper databaseHelper;
+    ImageView addCategoryItem;
 
 
     @Override
@@ -32,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         categoryItems = findViewById(R.id.category_list);
         listItems = findViewById(R.id.item_list);
+        addCategoryItem = findViewById(R.id.addCategoryItem);
 
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -43,10 +52,14 @@ public class MainActivity extends AppCompatActivity {
         categoryItems.setLayoutManager(layoutManager);
         listItems.setLayoutManager(layoutManager2);
 
-        List<CategoryItem> categoryItemList = new ArrayList();
-            categoryItemList.add(new CategoryItem("Összes",R.drawable.ic_launcher_foreground));
+        databaseHelper = DatabaseHelper.getInstance(this);
+        databaseHelper.addDefaultCategoryItem();
+
+
+        List<CategoryItem> categoryItemList = databaseHelper.getCategoryItemList();
+            /*categoryItemList.add(new CategoryItem("Összes",R.drawable.ic_launcher_foreground));
             categoryItemList.add(new CategoryItem("Új",R.drawable.ic_launcher_foreground));
-            categoryItemList.add(new CategoryItem("test3",R.drawable.ic_launcher_foreground));
+            categoryItemList.add(new CategoryItem("test3",R.drawable.ic_launcher_foreground));*/
 
         List<ListItem> listItemList = new ArrayList();
             listItemList.add(new ListItem("első",true));
@@ -86,10 +99,18 @@ public class MainActivity extends AppCompatActivity {
 
             - kattintáskor a kijelölt alulra kerüljön
             - valamilyen menürendszer
-            - adatbázis műveletek
 
          */
 
+
+        addCategoryItem.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddCategoryItemActivity.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            } else {
+                startActivity(intent);
+            }
+        });
 
     }
 
