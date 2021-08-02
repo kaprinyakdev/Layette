@@ -27,9 +27,11 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
                     android:text="Categories"
-                    android:textSize="20sp"
+                    android:textSize="28sp"
                     android:textStyle="bold"
+                    android:letterSpacing="0.1"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/squarekids"
                     android:layout_weight="10"/>
 
                 <ImageView

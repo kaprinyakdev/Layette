@@ -9,7 +9,6 @@ import android.util.Log;
 import com.example.layette.Model.CategoryItem;
 import com.example.layette.Model.ListItem;
 import com.example.layette.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +17,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "layette";
     private static final int DATABASE_VERSION = 1;
     private static DatabaseHelper databaseInstance;
-
     private static final String TABLE_CATEGORYITEM = "categoryitem";
     private static final String KEY_CATEGORYITEM_ID = "id";
     private static final String KEY_CATEGORYITEM_NAME = "name";
     private static final String KEY_CATEGORYITEM_IMAGE = "image";
-
     private static final String TABLE_LISTITEM = "listitem";
     private static final String KEY_LISTITEM_ID = "id";
     private static final String KEY_LISTITEM_NAME = "name";
@@ -68,6 +65,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+
+
+
     public void addCategoryItem(String name, int image){
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -82,7 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_CATEGORYITEM_ID,1);
+            values.put(KEY_CATEGORYITEM_ID,1);
             values.put(KEY_CATEGORYITEM_NAME, "Összes");
             values.put(KEY_CATEGORYITEM_IMAGE, R.drawable.ic_launcher_foreground);
         database.insert(TABLE_CATEGORYITEM,null,values);
@@ -130,6 +131,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public void updateListItem(String name, int id, boolean isChecked){
+
+    }
 
 
     public List<ListItem> getListItemList(){
