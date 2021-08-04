@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Program/Android/Layette/app/src/main/res/drawable/categoryitem_background.xml" value="0.27760416666666665" />
+        <entry key="..\:/Program/Android/Layette/app/src/main/res/drawable/gradient_background.xml" value="0.27760416666666665" />
+        <entry key="..\:/Program/Android/Layette/app/src/main/res/layout/activity_category_item_add.xml" value="0.25" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/layout/activity_main.xml" value="0.36354166666666665" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/layout/category_item.xml" value="0.36354166666666665" />
       </map>
