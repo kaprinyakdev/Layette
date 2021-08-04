@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 public class AddCategoryItemActivity extends Activity {
+
+    private RecyclerView imageList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
