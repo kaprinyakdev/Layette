@@ -105,11 +105,12 @@ public class MainActivity extends AppCompatActivity {
 
         addCategoryItem.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddCategoryItemActivity.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent);
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             } else {
                 startActivity(intent);
-            }
+            }*/
         });
 
     }
