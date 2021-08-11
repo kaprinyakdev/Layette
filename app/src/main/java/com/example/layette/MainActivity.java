@@ -1,12 +1,14 @@
 package com.example.layette;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ActivityOptions;
 import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
@@ -81,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
         CategoryListAdapter categoryListAdapter = new CategoryListAdapter(categoryItemList, this, new CategoryListAdapter.ItemClickListener() {
             @Override
             public void onItemClick(CategoryItem categoryItem) {
-                showToast(categoryItem.getCategoryName());
                 if (categoryItem.getCategoryName().equals("Összes")){
                     listItems.setAdapter(itemListAdapter);
+                    //categoryItems.setBackground(ContextCompat.getDrawable(listItems.getContext(),R.color.teal_200));
                 } else {
                     listItems.setAdapter(itemListAdapter2);
                 }
@@ -115,7 +117,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showToast(String asd){
-        Toast.makeText(this,asd,Toast.LENGTH_LONG).show();
-    }
 }

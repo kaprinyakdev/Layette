@@ -1,12 +1,16 @@
 package com.example.layette.Adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.layette.Model.CategoryItem;
 import com.example.layette.R;
@@ -18,6 +22,8 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     private Context context;
     private List<CategoryItem> categoryItemList;
     private ItemClickListener itemClickListener;
+    private View itemView;
+    private int row_index = -1;
 
     public CategoryListAdapter(List<CategoryItem> categoryItemList, Context context, ItemClickListener itemClickListener){
         this.context = context;
@@ -29,17 +35,36 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     @NonNull
     @Override
     public CategoryListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item,parent,false);
+        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item,parent,false);
         return new CategoryListHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryListAdapter.CategoryListHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryListHolder holder, int position) {
+
         CategoryItem categoryItem = categoryItemList.get(position);
         holder.categoryName.setText(categoryItem.getCategoryName());
         holder.categoryImage.setImageResource(categoryItem.getCategoryImage());
         holder.itemView.setOnClickListener(view -> {
+                    row_index = holder.getPosition();
+                    notifyDataSetChanged();
                     itemClickListener.onItemClick(categoryItemList.get(position));
+            Toast.makeText(context,String.valueOf(row_index),Toast.LENGTH_SHORT).show();
+                    if (row_index==position && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                        holder.itemView.setForeground(ContextCompat.getDrawable(context,R.color.teal_200));
+                    } else {
+                        if (row_index != position && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                            holder.itemView.setForeground(ContextCompat.getDrawable(context,R.color.white));
+                    }
+
+
+
+
+                    }
+
+                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        holder.itemView.setForeground(ContextCompat.getDrawable(context,R.color.teal_200));
+                    }*/
                 }
         );
     }
