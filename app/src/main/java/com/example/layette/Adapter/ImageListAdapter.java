@@ -53,7 +53,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
 
         public ImageListHolder(View v) {
             super(v);
-            image = v.findViewById(R.id.defaultCategoryImage);
+            //image = v.findViewById(R.id.);
         }
     }
 }

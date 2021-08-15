@@ -1,14 +1,13 @@
 package com.example.layette.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,11 +44,12 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         CategoryItem categoryItem = categoryItemList.get(position);
         holder.categoryName.setText(categoryItem.getCategoryName());
         holder.categoryImage.setImageResource(categoryItem.getCategoryImage());
+        holder.itemView.setBackgroundColor(Color.WHITE);
+        holder.itemView.setBackground(ContextCompat.getDrawable(context,R.color.white));
         holder.itemView.setOnClickListener(view -> {
                     row_index = holder.getPosition();
                     notifyDataSetChanged();
                     itemClickListener.onItemClick(categoryItemList.get(position));
-            Toast.makeText(context,String.valueOf(row_index),Toast.LENGTH_SHORT).show();
                     if (row_index==position && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                         holder.itemView.setForeground(ContextCompat.getDrawable(context,R.color.teal_200));
                     } else {
