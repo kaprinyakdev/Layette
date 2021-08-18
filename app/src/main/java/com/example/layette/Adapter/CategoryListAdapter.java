@@ -1,33 +1,36 @@
 package com.example.layette.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.layette.Model.CategoryItem;
 import com.example.layette.R;
-
 import java.util.List;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.CategoryListHolder> {
 
     private Context context;
     private List<CategoryItem> categoryItemList;
-    private ItemClickListener itemClickListener;
     private View itemView;
     private int row_index = -1;
+    private OnItemClickListener mListener;
 
-    public CategoryListAdapter(List<CategoryItem> categoryItemList, Context context, ItemClickListener itemClickListener){
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public CategoryListAdapter(List<CategoryItem> categoryItemList, Context context){
         this.context = context;
         this.categoryItemList = categoryItemList;
-        this.itemClickListener = itemClickListener;
     }
 
 
@@ -35,7 +38,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     @Override
     public CategoryListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item,parent,false);
-        return new CategoryListHolder(itemView);
+        return new CategoryListHolder(itemView, mListener);
     }
 
     @Override
@@ -44,29 +47,30 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         CategoryItem categoryItem = categoryItemList.get(position);
         holder.categoryName.setText(categoryItem.getCategoryName());
         holder.categoryImage.setImageResource(categoryItem.getCategoryImage());
-        holder.itemView.setBackgroundColor(Color.WHITE);
-        holder.itemView.setBackground(ContextCompat.getDrawable(context,R.color.white));
-        holder.itemView.setOnClickListener(view -> {
-                    row_index = holder.getPosition();
-                    notifyDataSetChanged();
-                    itemClickListener.onItemClick(categoryItemList.get(position));
+
+        /*holder.categoryImage.setOnClickListener(view -> {
+
+            int index = holder.getLayoutPosition();
+            //itemClickListener.onItemClick(categoryItemList.get(position));
+
+                    /*row_index = holder.getAdapterPosition();
+
+
                     if (row_index==position && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+
+                        Toast.makeText(context,categoryItem.getCategoryName(),Toast.LENGTH_SHORT).show();
                         holder.itemView.setForeground(ContextCompat.getDrawable(context,R.color.teal_200));
+                        holder.categoryName.setTextColor(Color.WHITE);
+
+
                     } else {
                         if (row_index != position && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                             holder.itemView.setForeground(ContextCompat.getDrawable(context,R.color.white));
                     }
 
-
-
-
                     }
-
-                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        holder.itemView.setForeground(ContextCompat.getDrawable(context,R.color.teal_200));
-                    }*/
                 }
-        );
+        );*/
     }
 
     @Override
@@ -82,10 +86,24 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
             protected TextView categoryName;
             protected ImageView categoryImage;
 
-            public CategoryListHolder(View v){
+            public CategoryListHolder(View v, final OnItemClickListener listener){
                 super(v);
                 categoryName = v.findViewById(R.id.categoryName);
                 categoryImage = v.findViewById(R.id.categoryImage);
+
+                v.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        if (listener != null) {
+                            int position = getAdapterPosition();
+                            if (position != RecyclerView.NO_POSITION) {
+                                listener.onItemClick(position);
+                            }
+                        }
+                    }
+                });
             }
     }
+
+
 }

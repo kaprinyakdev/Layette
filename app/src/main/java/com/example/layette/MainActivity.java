@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -80,17 +81,19 @@ public class MainActivity extends AppCompatActivity {
         ItemListAdapter itemListAdapter2 = new ItemListAdapter(listItemList2, this);
         ItemListAdapter itemListAdapter = new ItemListAdapter(listItemList, this);
 
-        CategoryListAdapter categoryListAdapter = new CategoryListAdapter(categoryItemList, this, new CategoryListAdapter.ItemClickListener() {
+        CategoryListAdapter categoryListAdapter = new CategoryListAdapter(categoryItemList, this);
+
+        categoryListAdapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(CategoryItem categoryItem) {
-                if (categoryItem.getCategoryName().equals("Összes")){
-                    listItems.setAdapter(itemListAdapter);
-                    //categoryItems.setBackground(ContextCompat.getDrawable(listItems.getContext(),R.color.teal_200));
-                } else {
-                    listItems.setAdapter(itemListAdapter2);
-                }
+            public void onItemClick(int position) {
+                Toast.makeText(categoryItems.getContext(),"asd",Toast.LENGTH_SHORT).show();
+                Log.i("asd","asd");
+                categoryItemList.add(new CategoryItem(6,"Kórház",R.mipmap.icon_hospital_foreground));
+                categoryItemList.add(new CategoryItem(7,"Ruha",R.mipmap.icon_babyclothes_foreground));
+                categoryListAdapter.notifyItemChanged(position);
             }
         });
+
         categoryItems.setAdapter(categoryListAdapter);
 
         //listItems.setAdapter(itemListAdapter);
@@ -100,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
         /*
 
             - kattintáskor a kijelölt alulra kerüljön
-            - valamilyen menürendszer
+            - valamilyen menürendszer:
+                alul 3 menü: beépített, saját, beállítások (téma, )
 
          */
 

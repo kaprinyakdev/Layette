@@ -85,7 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
             values.put(KEY_CATEGORYITEM_ID,1);
             values.put(KEY_CATEGORYITEM_NAME, "Összes");
-            values.put(KEY_CATEGORYITEM_IMAGE, R.drawable.ic_launcher_foreground);
+            values.put(KEY_CATEGORYITEM_IMAGE, R.mipmap.icon_summary_foreground);
         database.insert(TABLE_CATEGORYITEM,null,values);
 
     }
