@@ -8,7 +8,6 @@ import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.example.layette.Database.DatabaseHelper;
 
 public class AddCategoryItemActivity extends Activity {

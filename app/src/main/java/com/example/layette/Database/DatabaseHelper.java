@@ -9,6 +9,8 @@ import android.util.Log;
 import com.example.layette.Model.CategoryItem;
 import com.example.layette.Model.ListItem;
 import com.example.layette.R;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_LISTITEM_ID = "id";
     private static final String KEY_LISTITEM_NAME = "name";
     private static final String KEY_LISTITEM_CATEGORYITEMID = "categoryitemid";
+    private static final String KEY_LISTITEM_ISDEFAULT = "isdefault";
 
 
 
@@ -53,7 +56,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String create_listitem_table = "CREATE TABLE IF NOT EXISTS " + TABLE_LISTITEM + "("
                 + KEY_LISTITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + KEY_LISTITEM_NAME + " TEXT,"
-                + KEY_LISTITEM_CATEGORYITEMID + " INTEGER"
+                + KEY_LISTITEM_CATEGORYITEMID + " INTEGER,"
+                + KEY_LISTITEM_ISDEFAULT + " INTEGER DEFAULT 0"
                 +")";
         db.execSQL(create_listitem_table);
 
@@ -65,10 +69,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-
-
-
-
     public void addCategoryItem(String name, int image){
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -78,9 +78,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void addCategoryItems(List<CategoryItem> categoryItemList){
+        SQLiteDatabase database = this.getWritableDatabase();
+        for (int i=0; i<categoryItemList.size(); i++){
+            ContentValues values = new ContentValues();
+                values.put(KEY_CATEGORYITEM_NAME, categoryItemList.get(i).getCategoryName());
+                values.put(KEY_CATEGORYITEM_IMAGE, categoryItemList.get(i).getCategoryImage());
+                database.insert(TABLE_CATEGORYITEM,null,values);
+        }
+    }
+
+    public void addItems(List<ListItem> itemList){
+        SQLiteDatabase database = this.getWritableDatabase();
+        for (int i=0; i<itemList.size(); i++){
+            ContentValues values = new ContentValues();
+                values.put(KEY_LISTITEM_NAME, itemList.get(i).getItemName());
+                values.put(KEY_LISTITEM_ISDEFAULT, 1);
+                database.insert(TABLE_LISTITEM, null, values);
+        }
+    }
+
+    public boolean isFirstUse(){
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor categoryItemCounter = database.rawQuery("select count(*) from " + TABLE_CATEGORYITEM, null);
+        categoryItemCounter.moveToFirst();
+        int count = categoryItemCounter.getInt(0);
+        categoryItemCounter.close();
+
+        return count == 0;
+    }
+
     public void addDefaultCategoryItem(){
-
-
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
             values.put(KEY_CATEGORYITEM_ID,1);
@@ -90,23 +118,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void deleteCategoryItem(int categoryId){
-        /*SQLiteDatabase database = this.getWritableDatabase();
-        database.beginTransaction();
-        try {
-            database.delete(TABLE_BABY,KEY_BABY_ID + "=" + String.valueOf(id),null);
-            database.setTransactionSuccessful();
-        } catch (Exception e) {
-            Log.d("Babydata delete error", "Error while trying to delete all posts and users");
-        } finally {
-            database.endTransaction();
-        }*/
+    public void deleteCategoryItems(){
+        SQLiteDatabase database = this.getWritableDatabase();
+            database.execSQL("delete from "+ TABLE_CATEGORYITEM);
+            database.close();
     }
 
     public List<CategoryItem> getCategoryItemList(){
         List<CategoryItem> categoryItemList = new ArrayList<>();
 
         String query = String.format("SELECT * FROM %s",TABLE_CATEGORYITEM);
+
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(query, null);
         try {
@@ -131,16 +153,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void updateListItem(String name, int id, boolean isChecked){
+    public List<ListItem> getAllDefaultItem(){
+        List<ListItem> defaultItems = new ArrayList<>();
 
+        String query = String.format("SELECT * FROM " + TABLE_LISTITEM + " WHERE " + KEY_LISTITEM_ISDEFAULT + " = 1");
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(query, null);
+        try {
+            if(cursor.moveToFirst()) {
+                do {
+                    String name = cursor.getString(cursor.getColumnIndex(KEY_LISTITEM_NAME));
+                    ListItem listItem = new ListItem(name, false, true);
+                    defaultItems.add(listItem);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e){
+            Log.i("asd", e.getMessage());
+        } finally {
+            if (cursor != null || !cursor.isClosed()){
+                cursor.close();
+            }
+        }
+
+        return defaultItems;
     }
 
-
-    public List<ListItem> getListItemList(){
-        List<ListItem> listItemList = new ArrayList<>();
-
-
-
-        return listItemList;
-    }
 }

@@ -1,19 +1,12 @@
 package com.example.layette.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.layette.AddCategoryItemActivity;
 import com.example.layette.Model.ListItem;
 import com.example.layette.R;
 import java.util.List;
@@ -22,8 +15,17 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
 
     private Context context;
     private List<ListItem> listItemList;
-    private CategoryListAdapter.ItemClickListener itemClickListener;
+    private ItemListAdapter.OnItemClickListener mListener;
 
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+
+    public void setOnItemClickListener(ItemListAdapter.OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public ItemListAdapter(List<ListItem> listItemList, Context context){
         this.context = context;
@@ -34,13 +36,12 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     @Override
     public ItemListAdapter.ItemListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
-        return new ItemListAdapter.ItemListHolder(itemView);
+        return new ItemListAdapter.ItemListHolder(itemView, mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemListAdapter.ItemListHolder holder, int position) {
         ListItem listItem = listItemList.get(position);
-        //holder.itemName.setText(listItem.getItemName());
         holder.itemChecked.setChecked(listItem.isItemChecked());
         holder.itemChecked.setText(listItem.getItemName());
 
@@ -51,13 +52,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
             }
         );
 
-        /*holder.itemChecked.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                return false;
-            }
-        });*/
     }
 
     @Override
@@ -66,13 +60,22 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     }
 
     public static class ItemListHolder extends RecyclerView.ViewHolder {
-        //protected TextView itemName;
         protected CheckBox itemChecked;
 
-        public ItemListHolder(View v){
+        public ItemListHolder(View v, final ItemListAdapter.OnItemClickListener listener){
             super(v);
-            //itemName = v.findViewById(R.id.itemName);
             itemChecked = v.findViewById(R.id.itemChecked);
+            v.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

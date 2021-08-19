@@ -20,6 +20,8 @@ import com.example.layette.Adapter.CategoryListAdapter;
 import com.example.layette.Adapter.ItemListAdapter;
 import com.example.layette.Database.DatabaseHelper;
 import com.example.layette.Model.CategoryItem;
+import com.example.layette.Model.DefaultCategoryItemList;
+import com.example.layette.Model.DefaultItemList;
 import com.example.layette.Model.ListItem;
 
 import java.util.ArrayList;
@@ -33,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     LinearLayoutManager layoutManager2;
     DatabaseHelper databaseHelper;
-    ImageView addCategoryItem;
 
 
     @Override
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         categoryItems = findViewById(R.id.category_list);
         listItems = findViewById(R.id.item_list);
-        addCategoryItem = findViewById(R.id.addCategoryItem);
 
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -56,47 +56,77 @@ public class MainActivity extends AppCompatActivity {
         listItems.setLayoutManager(layoutManager2);
 
         databaseHelper = DatabaseHelper.getInstance(this);
-        databaseHelper.addDefaultCategoryItem();
+
+        DefaultCategoryItemList defaultCategoryItemList = DefaultCategoryItemList.getInstance();
+        DefaultItemList defaultItemList = DefaultItemList.getInstance();
+
+        if (databaseHelper.isFirstUse()){
+            databaseHelper.addCategoryItems(defaultCategoryItemList.getDefaultCategoryItems());
+            databaseHelper.addItems(defaultItemList.getDefaultListItems());
+        }
 
 
         List<CategoryItem> categoryItemList = databaseHelper.getCategoryItemList();
-            /*categoryItemList.add(new CategoryItem("Összes",R.drawable.ic_launcher_foreground));
-            categoryItemList.add(new CategoryItem("Új",R.drawable.ic_launcher_foreground));
-            categoryItemList.add(new CategoryItem("test3",R.drawable.ic_launcher_foreground));*/
+        List<ListItem> defaultListItem = defaultItemList.getDefaultListItems();
 
         List<ListItem> listItemList = new ArrayList();
-            listItemList.add(new ListItem("első",true));
-            listItemList.add(new ListItem("második",true));
-            listItemList.add(new ListItem("harmadik",true));
-            listItemList.add(new ListItem("negyedik",true));
+            listItemList.add(new ListItem("első",true, true));
+            listItemList.add(new ListItem("második",true, true));
+            listItemList.add(new ListItem("harmadik",true, true));
+            listItemList.add(new ListItem("negyedik",true, true));
 
 
         List<ListItem> listItemList2 = new ArrayList();
-            listItemList2.add(new ListItem("első2",false));
-            listItemList2.add(new ListItem("második2",false));
-            listItemList2.add(new ListItem("harmadik2",false));
-            listItemList2.add(new ListItem("negyedik2",false));
+            listItemList2.add(new ListItem("első2",false, true));
+            listItemList2.add(new ListItem("második2",false, true));
+            listItemList2.add(new ListItem("harmadik2",false, true));
+            listItemList2.add(new ListItem("negyedik2",false, true));
 
 
         ItemListAdapter itemListAdapter2 = new ItemListAdapter(listItemList2, this);
         ItemListAdapter itemListAdapter = new ItemListAdapter(listItemList, this);
+        ItemListAdapter itemListAdapter3 = new ItemListAdapter(defaultListItem, this);
+
+        itemListAdapter2.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Log.i("asd","dsa");
+            }
+        });
+
+        itemListAdapter3.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Log.i("asd","dsa");
+            }
+        });
+
 
         CategoryListAdapter categoryListAdapter = new CategoryListAdapter(categoryItemList, this);
 
         categoryListAdapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(categoryItems.getContext(),"asd",Toast.LENGTH_SHORT).show();
                 Log.i("asd","asd");
-                categoryItemList.add(new CategoryItem(6,"Kórház",R.mipmap.icon_hospital_foreground));
-                categoryItemList.add(new CategoryItem(7,"Ruha",R.mipmap.icon_babyclothes_foreground));
-                categoryListAdapter.notifyItemChanged(position);
+                categoryItemList.get(position);
+
+                if (categoryItemList.get(position).getCategoryName().equals("Összes")) {
+                    listItems.setAdapter(itemListAdapter3);
+                } else {
+                    listItems.setAdapter(itemListAdapter2);
+                }
+
+
+
+                //categoryItemList.add(new CategoryItem(6,"Kórház",R.mipmap.icon_hospital_foreground));
+                //categoryItemList.add(new CategoryItem(7,"Ruha",R.mipmap.icon_babyclothes_foreground));
+                //categoryListAdapter.notifyItemChanged(position);
             }
         });
 
         categoryItems.setAdapter(categoryListAdapter);
+        listItems.setAdapter(itemListAdapter);
 
-        //listItems.setAdapter(itemListAdapter);
 
 
 
@@ -107,17 +137,6 @@ public class MainActivity extends AppCompatActivity {
                 alul 3 menü: beépített, saját, beállítások (téma, )
 
          */
-
-
-        addCategoryItem.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AddCategoryItemActivity.class);
-            startActivity(intent);
-            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-            } else {
-                startActivity(intent);
-            }*/
-        });
 
     }
 

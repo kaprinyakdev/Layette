@@ -32,29 +32,18 @@
                     android:textStyle="bold"
                     android:letterSpacing="0.1"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/squarekids"
+                    android:fontFamily="@font/poppins"
                     android:layout_weight="10"/>
-
-                <ImageView
-                    android:id="@+id/addCategoryItem"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:src="@drawable/ic_baseline_add_24"
-                    android:layout_weight="1"/>
-
         </LinearLayout>
-
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_list"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_marginTop="32dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="@+id/linearlayout"
             app:layout_constraintStart_toStartOf="@+id/linearlayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearlayout"/>
+            app:layout_constraintTop_toBottomOf="@+id/linearlayout" />
 
         <TextView
             android:id="@+id/textview_items"
@@ -66,7 +55,7 @@
             android:textStyle="bold"
             android:letterSpacing="0.1"
             android:textColor="@color/black"
-            android:fontFamily="@font/squarekids"
+            android:fontFamily="@font/poppins"
             app:layout_constraintEnd_toEndOf="@+id/category_list"
             app:layout_constraintStart_toStartOf="@+id/category_list"
             app:layout_constraintTop_toBottomOf="@+id/category_list"/>

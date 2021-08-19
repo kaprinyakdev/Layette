@@ -5,10 +5,12 @@ public class ListItem {
     private String itemName;
     private boolean itemChecked;
     private int categoryId;
+    private boolean isDefault;
 
-    public ListItem(String itemName, boolean itemChecked) {
+    public ListItem(String itemName, boolean itemChecked, boolean isDefault) {
         this.itemName = itemName;
         this.itemChecked = itemChecked;
+        this.isDefault = isDefault;
     }
 
     public String getItemName() {
@@ -25,5 +27,13 @@ public class ListItem {
 
     public void setItemChecked(boolean itemChecked) {
         this.itemChecked = itemChecked;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
     }
 }

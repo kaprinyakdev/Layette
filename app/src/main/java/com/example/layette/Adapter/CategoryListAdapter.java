@@ -17,7 +17,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     private Context context;
     private List<CategoryItem> categoryItemList;
     private View itemView;
-    private int row_index = -1;
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
@@ -78,9 +77,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         return categoryItemList.size();
     }
 
-    public interface ItemClickListener{
-        void onItemClick(CategoryItem categoryItem);
-    }
 
     public static class CategoryListHolder extends RecyclerView.ViewHolder {
             protected TextView categoryName;
