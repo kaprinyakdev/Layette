@@ -1,21 +1,10 @@
 package com.example.layette;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.ActivityOptions;
-import android.content.ClipData;
-import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.example.layette.Adapter.CategoryListAdapter;
 import com.example.layette.Adapter.ItemListAdapter;
 import com.example.layette.Database.DatabaseHelper;
@@ -27,7 +16,6 @@ import com.example.layette.Model.ListItem;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView categoryItems;
@@ -35,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     LinearLayoutManager layoutManager2;
     DatabaseHelper databaseHelper;
+    List<ListItem> adapter_sum, adapter_travel;
 
 
     @Override
@@ -48,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-
         layoutManager2 = new LinearLayoutManager(this);
         layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -57,9 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper = DatabaseHelper.getInstance(this);
 
+
+        // DEFAULT KATEGÓRIÁK ÉS ITEMEK LEKÉRDEZÉSE
         DefaultCategoryItemList defaultCategoryItemList = DefaultCategoryItemList.getInstance();
         DefaultItemList defaultItemList = DefaultItemList.getInstance();
 
+
+        // HA ELSŐ HASZNÁLAT, AKKOR HOZZÁADJUK AZ ALAPÉRTELMEZETT KATEGÓRIÁKAT
         if (databaseHelper.isFirstUse()){
             databaseHelper.addCategoryItems(defaultCategoryItemList.getDefaultCategoryItems());
             databaseHelper.addItems(defaultItemList.getDefaultListItems());
@@ -68,26 +60,25 @@ public class MainActivity extends AppCompatActivity {
 
         List<CategoryItem> categoryItemList = databaseHelper.getCategoryItemList();
         List<ListItem> defaultListItem = defaultItemList.getDefaultListItems();
+        adapter_sum = new ArrayList<>();
+        adapter_travel = new ArrayList<>();
 
-        List<ListItem> listItemList = new ArrayList();
-            listItemList.add(new ListItem("első",true, true));
-            listItemList.add(new ListItem("második",true, true));
-            listItemList.add(new ListItem("harmadik",true, true));
-            listItemList.add(new ListItem("negyedik",true, true));
+        for (int i=0; i<defaultListItem.size(); i++){
+            ListItem listItem = defaultListItem.get(i);
+            if (listItem.getCategoryName().equals("SUM")){
+                adapter_sum.add(listItem);
+            } else if (listItem.getCategoryName().equals("TRAVEL")){
+                adapter_travel.add(listItem);
+            }
+        }
+
+        ItemListAdapter itemAdapter_sum = new ItemListAdapter(adapter_sum, null);
+        ItemListAdapter itemAdapter_travel = new ItemListAdapter(adapter_travel, null);
 
 
-        List<ListItem> listItemList2 = new ArrayList();
-            listItemList2.add(new ListItem("első2",false, true));
-            listItemList2.add(new ListItem("második2",false, true));
-            listItemList2.add(new ListItem("harmadik2",false, true));
-            listItemList2.add(new ListItem("negyedik2",false, true));
-
-
-        ItemListAdapter itemListAdapter2 = new ItemListAdapter(listItemList2, this);
-        ItemListAdapter itemListAdapter = new ItemListAdapter(listItemList, this);
         ItemListAdapter itemListAdapter3 = new ItemListAdapter(defaultListItem, this);
 
-        itemListAdapter2.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
+        itemAdapter_travel.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Log.i("asd","dsa");
@@ -101,10 +92,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         CategoryListAdapter categoryListAdapter = new CategoryListAdapter(categoryItemList, this);
 
         categoryListAdapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
+
+
             @Override
             public void onItemClick(int position) {
                 Log.i("asd","asd");
@@ -112,8 +104,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (categoryItemList.get(position).getCategoryName().equals("Összes")) {
                     listItems.setAdapter(itemListAdapter3);
-                } else {
-                    listItems.setAdapter(itemListAdapter2);
+
+                } else if (categoryItemList.get(position).getCategoryName().equals("Utazás")){
+                    listItems.setAdapter(itemAdapter_travel);
                 }
 
 
@@ -125,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         categoryItems.setAdapter(categoryListAdapter);
-        listItems.setAdapter(itemListAdapter);
+        listItems.setAdapter(itemListAdapter3);
 
 
 

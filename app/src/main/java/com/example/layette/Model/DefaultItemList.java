@@ -11,15 +11,21 @@ public class DefaultItemList {
 
     private DefaultItemList(){
         itemList = new ArrayList<>();
-        itemList.add(new ListItem("test1",true,true));
-        itemList.add(new ListItem("test2",true,true));
-        itemList.add(new ListItem("test3",true,true));
-        itemList.add(new ListItem("test4",false,true));
-        itemList.add(new ListItem("test5",false,true));
-        itemList.add(new ListItem("test6",false,true));
-        itemList.add(new ListItem("test7",true,false));
-        itemList.add(new ListItem("test8",true,false));
-        itemList.add(new ListItem("test9",true,false));
+        itemList.add(new ListItem("test1",false,true,"SUM"));
+        itemList.add(new ListItem("test2",false,true,"SUM"));
+        itemList.add(new ListItem("test3",false,true,"SUM"));
+        itemList.add(new ListItem("test4",false,true,"SUM"));
+        itemList.add(new ListItem("test5",false,true,"SUM"));
+        itemList.add(new ListItem("test6",false,true,"SUM"));
+        itemList.add(new ListItem("test7",false,true,"SUM"));
+        itemList.add(new ListItem("test8",false,true,"SUM"));
+        itemList.add(new ListItem("test9",false,true,"SUM"));
+
+        // UTAZÁS
+        itemList.add(new ListItem("Babakocsi",false,true,"TRAVEL"));
+        itemList.add(new ListItem("Hordozó",false,true,"TRAVEL"));
+
+
     }
 
     public static DefaultItemList getInstance(){

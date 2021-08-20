@@ -1,6 +1,7 @@
 package com.example.layette.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         CategoryItem categoryItem = categoryItemList.get(position);
         holder.categoryName.setText(categoryItem.getCategoryName());
         holder.categoryImage.setImageResource(categoryItem.getCategoryImage());
+
 
         /*holder.categoryImage.setOnClickListener(view -> {
 

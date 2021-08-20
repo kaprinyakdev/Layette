@@ -164,7 +164,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             if(cursor.moveToFirst()) {
                 do {
                     String name = cursor.getString(cursor.getColumnIndex(KEY_LISTITEM_NAME));
-                    ListItem listItem = new ListItem(name, false, true);
+                    ListItem listItem = new ListItem(name, false, true, "TRAVEL");
                     defaultItems.add(listItem);
                 } while (cursor.moveToNext());
             }
