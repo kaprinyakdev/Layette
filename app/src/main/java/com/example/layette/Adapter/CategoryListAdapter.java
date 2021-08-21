@@ -1,13 +1,14 @@
 package com.example.layette.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.layette.Model.CategoryItem;
 import com.example.layette.R;
@@ -19,6 +20,8 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     private List<CategoryItem> categoryItemList;
     private View itemView;
     private OnItemClickListener mListener;
+    private int row_index = 0;
+
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -51,25 +54,12 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
         /*holder.categoryImage.setOnClickListener(view -> {
 
-            int index = holder.getLayoutPosition();
-            //itemClickListener.onItemClick(categoryItemList.get(position));
-
-                    /*row_index = holder.getAdapterPosition();
-
-
-                    if (row_index==position && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-
-                        Toast.makeText(context,categoryItem.getCategoryName(),Toast.LENGTH_SHORT).show();
-                        holder.itemView.setForeground(ContextCompat.getDrawable(context,R.color.teal_200));
-                        holder.categoryName.setTextColor(Color.WHITE);
-
-
+                    if (row_index==holder.getAdapterPosition()){
+                        holder.cardView.setBackgroundColor(Color.GREEN);
                     } else {
-                        if (row_index != position && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                            holder.itemView.setForeground(ContextCompat.getDrawable(context,R.color.white));
+                        holder.cardView.setBackgroundColor(Color.WHITE);
                     }
 
-                    }
                 }
         );*/
     }
@@ -83,11 +73,15 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     public static class CategoryListHolder extends RecyclerView.ViewHolder {
             protected TextView categoryName;
             protected ImageView categoryImage;
+            protected ConstraintLayout category_item_background;
+            protected CardView cardView;
 
             public CategoryListHolder(View v, final OnItemClickListener listener){
                 super(v);
                 categoryName = v.findViewById(R.id.categoryName);
                 categoryImage = v.findViewById(R.id.categoryImage);
+                category_item_background = v.findViewById(R.id.category_item_background);
+                cardView = v.findViewById(R.id.cardView);
 
                 v.setOnClickListener(new View.OnClickListener(){
                     @Override

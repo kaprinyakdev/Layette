@@ -22,8 +22,10 @@ public class DefaultItemList {
         itemList.add(new ListItem("test9",false,true,"SUM"));
 
         // UTAZÁS
-        itemList.add(new ListItem("Babakocsi",false,true,"TRAVEL"));
-        itemList.add(new ListItem("Hordozó",false,true,"TRAVEL"));
+            itemList.add(new ListItem("Babakocsi",false,true,"TRAVEL"));
+            itemList.add(new ListItem("Hordozó",false,true,"TRAVEL"));
+            itemList.add(new ListItem("Pelenkázó táska",false,true,"TRAVEL"));
+
 
 
     }

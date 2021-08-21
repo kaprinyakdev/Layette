@@ -1,12 +1,17 @@
 package com.example.layette.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.layette.Database.DatabaseHelper;
 import com.example.layette.Model.ListItem;
 import com.example.layette.R;
 import java.util.List;
@@ -16,6 +21,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     private Context context;
     private List<ListItem> listItemList;
     private ItemListAdapter.OnItemClickListener mListener;
+    private DatabaseHelper databaseHelper;
 
 
     public interface OnItemClickListener {
@@ -30,6 +36,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     public ItemListAdapter(List<ListItem> listItemList, Context context){
         this.context = context;
         this.listItemList = listItemList;
+        databaseHelper = DatabaseHelper.getInstance(context);
     }
 
     @NonNull
@@ -48,7 +55,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
 
 
         holder.itemChecked.setOnClickListener(view -> {
-
+            databaseHelper.
             }
         );
 
