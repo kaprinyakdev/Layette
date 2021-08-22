@@ -1,17 +1,30 @@
 package com.example.layette.Model;
 
+import androidx.annotation.Nullable;
+
 public class ListItem {
 
+
+    private @Nullable int itemId;
     private String itemName;
     private boolean itemChecked;
     private String categoryName;
     private boolean isDefault;
 
-    public ListItem(String itemName, boolean itemChecked, boolean isDefault, String categoryName) {
+    public ListItem(@Nullable int itemId, String itemName, boolean itemChecked, boolean isDefault, String categoryName) {
+        this.itemId = itemId;
         this.itemName = itemName;
         this.itemChecked = itemChecked;
         this.isDefault = isDefault;
         this.categoryName = categoryName;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     public String getItemName() {

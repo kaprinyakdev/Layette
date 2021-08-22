@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_LISTITEM_NAME = "name";
     private static final String KEY_LISTITEM_CATEGORYNAME = "categoryname";
     private static final String KEY_LISTITEM_ISDEFAULT = "isdefault";
+    private static final String KEY_LISTITEM_ISCHECKED = "ischecked";
 
 
 
@@ -54,7 +55,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + KEY_LISTITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + KEY_LISTITEM_NAME + " TEXT,"
                 + KEY_LISTITEM_CATEGORYNAME + " TEXT,"
-                + KEY_LISTITEM_ISDEFAULT + " INTEGER DEFAULT 0"
+                + KEY_LISTITEM_ISDEFAULT + " INTEGER DEFAULT 0,"
+                + KEY_LISTITEM_ISCHECKED + " INTEGER DEFAULT 0"
                 +")";
         db.execSQL(create_listitem_table);
     }
@@ -153,9 +155,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             try {
                 if(cursor.moveToFirst()) {
                     do {
+                        int id = cursor.getInt(cursor.getColumnIndex(KEY_LISTITEM_ID));
                         String name = cursor.getString(cursor.getColumnIndex(KEY_LISTITEM_NAME));
                         String categoryName = cursor.getString(cursor.getColumnIndex(KEY_LISTITEM_CATEGORYNAME));
-                        ListItem listItem = new ListItem(name, false, true, categoryName);
+                        ListItem listItem = new ListItem(id, name, false, true, categoryName);
                         defaultItems.add(listItem);
                     } while (cursor.moveToNext());
                 }
@@ -169,7 +172,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return defaultItems;
         }
 
-        public void updateItem(ListItem oldValue, ListItem newValue){
-
+        public void updateItem(int itemId, boolean isChecked){
+            SQLiteDatabase database = this.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            int checked;
+            if (isChecked){
+                checked = 1;
+            } else{
+                checked = 0;
+            }
+            cv.put(KEY_LISTITEM_ISCHECKED, checked);
+            database.update(TABLE_LISTITEM, cv, "_id = ?", new String[]{String.valueOf(itemId)});
         }
 }

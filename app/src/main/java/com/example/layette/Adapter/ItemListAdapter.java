@@ -50,12 +50,10 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     public void onBindViewHolder(@NonNull ItemListAdapter.ItemListHolder holder, int position) {
         ListItem listItem = listItemList.get(position);
         holder.itemChecked.setChecked(listItem.isItemChecked());
-        holder.itemChecked.setText(listItem.getItemName());
-
-
+        //holder.itemChecked.setText(listItem.getItemName());
 
         holder.itemChecked.setOnClickListener(view -> {
-            databaseHelper.
+                databaseHelper.updateItem(listItem.getItemId(), holder.itemChecked.isChecked());
             }
         );
 
