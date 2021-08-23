@@ -73,15 +73,20 @@ public class MainActivity extends AppCompatActivity {
         //ItemListAdapter itemAdapter_sum = new ItemListAdapter(adapter_sum, null);
         ItemListAdapter itemAdapter_travel = new ItemListAdapter(adapter_travel, null);
 
-
-        ItemListAdapter itemListAdapter3 = new ItemListAdapter(defaultListItem, this);
-
-        itemAdapter_travel.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
+        /*itemAdapter_travel.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                boolean isChecked = adapter_travel.get(position).isItemChecked();
+                databaseHelper.updateItem(adapter_travel.get(position).getItemId(),isChecked);
                 itemAdapter_travel.notifyDataSetChanged();
+                Log.i("qwe","qwe");
             }
-        });
+        });*/
+
+
+
+
+        ItemListAdapter itemListAdapter3 = new ItemListAdapter(defaultListItem, this);
 
         itemListAdapter3.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
             @Override
@@ -101,9 +106,20 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (categoryItemList.get(position).getCategoryName().equals("Összes")) {
+
                     listItems.setAdapter(itemListAdapter3);
 
                 } else if (categoryItemList.get(position).getCategoryName().equals("Utazás")){
+                    List<ListItem> defaultListItem = databaseHelper.getDefaultItems();
+                    adapter_travel = new ArrayList<>();
+
+                    for (int i=0; i<defaultListItem.size(); i++){
+                        ListItem listItem = defaultListItem.get(i);
+                        if (listItem.getCategoryName().equals("TRAVEL")){
+                            adapter_travel.add(listItem);
+                        }
+                    }
+                    ItemListAdapter itemAdapter_travel = new ItemListAdapter(adapter_travel, null);
                     listItems.setAdapter(itemAdapter_travel);
                 }
 

@@ -158,7 +158,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         int id = cursor.getInt(cursor.getColumnIndex(KEY_LISTITEM_ID));
                         String name = cursor.getString(cursor.getColumnIndex(KEY_LISTITEM_NAME));
                         String categoryName = cursor.getString(cursor.getColumnIndex(KEY_LISTITEM_CATEGORYNAME));
-                        ListItem listItem = new ListItem(id, name, false, true, categoryName);
+                        int isChecked = cursor.getInt(cursor.getColumnIndex(KEY_LISTITEM_ISCHECKED));
+                        ListItem listItem = new ListItem(id, name, isChecked == 1, true, categoryName);
                         defaultItems.add(listItem);
                     } while (cursor.moveToNext());
                 }
@@ -182,6 +183,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 checked = 0;
             }
             cv.put(KEY_LISTITEM_ISCHECKED, checked);
-            database.update(TABLE_LISTITEM, cv, "_id = ?", new String[]{String.valueOf(itemId)});
+            database.update(TABLE_LISTITEM, cv, " id = ?", new String[]{String.valueOf(itemId)});
         }
+
+        public ListItem getItem(int itemId){
+            String query = String.format("SELECT * FROM " + TABLE_LISTITEM + " WHERE " + KEY_LISTITEM_ID + " = ?", new String[]{String.valueOf(itemId)});
+            SQLiteDatabase database = this.getWritableDatabase();
+            Cursor cursor = database.rawQuery(query, null);
+            ListItem listItem = null;
+            try {
+                if(cursor.moveToFirst()) {
+                    do {
+                        String name = cursor.getString(cursor.getColumnIndex(KEY_LISTITEM_NAME));
+                        String categoryName = cursor.getString(cursor.getColumnIndex(KEY_LISTITEM_CATEGORYNAME));
+                        int isChecked = cursor.getInt(cursor.getColumnIndex(KEY_LISTITEM_ISCHECKED));
+                        listItem = new ListItem(itemId, name, isChecked == 1, true, categoryName);
+                    } while (cursor.moveToNext());
+                }
+            } catch (Exception e){
+                Log.i("asd", e.getMessage());
+            } finally {
+                if (cursor != null || !cursor.isClosed()){
+                    cursor.close();
+                }
+            }
+            return listItem;
+        }
+
 }
