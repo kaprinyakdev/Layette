@@ -13,6 +13,8 @@ import com.example.layette.Model.DefaultCategoryItemList;
 import com.example.layette.Model.DefaultItemList;
 import com.example.layette.Model.ListItem;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     LinearLayoutManager layoutManager2;
     DatabaseHelper databaseHelper;
-    List<ListItem> adapter_sum, adapter_travel;
+    List<ListItem> listitem_travel, listitem_hospital, listitem_clothes;
 
 
     @Override
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         databaseHelper = DatabaseHelper.getInstance(this);
+        //databaseHelper.addDefaultCategoryItems();
+        //databaseHelper.addDefaultItems();
 
         // KATEGÓRIA
             categoryItems = findViewById(R.id.category_list);
@@ -57,22 +61,79 @@ public class MainActivity extends AppCompatActivity {
         List<ListItem> defaultListItem = databaseHelper.getDefaultItems();
 
 
-        adapter_sum = new ArrayList<>();
-        adapter_travel = new ArrayList<>();
+        listitem_travel = new ArrayList<>();
+        listitem_hospital = new ArrayList<>();
+        listitem_clothes = new ArrayList<>();
 
         for (int i=0; i<defaultListItem.size(); i++){
             ListItem listItem = defaultListItem.get(i);
-            if (listItem.getCategoryName().equals("SUM")){
-                adapter_sum.add(listItem);
+            switch (listItem.getCategoryName()){
+                case "TRAVEL":
+                    listitem_travel.add(listItem);
+                    break;
+                case "HOSPITAL":
+                    listitem_hospital.add(listItem);
+                    break;
+                case "CLOTHES":
+                    listitem_clothes.add(listItem);
+                    break;
             }
-            if (listItem.getCategoryName().equals("TRAVEL")){
-                adapter_travel.add(listItem);
-            }
+
         }
 
-        //ItemListAdapter itemAdapter_sum = new ItemListAdapter(adapter_sum, null);
-        ItemListAdapter itemAdapter_travel = new ItemListAdapter(adapter_travel, null);
+        CategoryListAdapter categoryListAdapter = new CategoryListAdapter(categoryItemList, this);
 
+        categoryListAdapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(int position) {
+                //categoryItemList.get(position);
+
+                if (categoryItemList.get(position).getCategoryName().equals("Kórház")) {
+                    ItemListAdapter itemAdapter_hospital = new ItemListAdapter(listitem_hospital,null);
+                    listItems.setAdapter(itemAdapter_hospital);
+
+                } else if (categoryItemList.get(position).getCategoryName().equals("Utazás")){
+                    ItemListAdapter itemAdapter_travel = new ItemListAdapter(listitem_travel, null);
+                    /*itemAdapter_travel.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
+                          @Override
+                          public void onItemClick(int position) {
+                              boolean isChecked = listitem_travel.get(position).isItemChecked();
+                              databaseHelper.updateItem(listitem_travel.get(position).getItemId(), isChecked);
+                              itemAdapter_travel.notifyDataSetChanged();
+                              Log.i("qwe", "qwe");
+                          }
+                      });*/
+                    listItems.setAdapter(itemAdapter_travel);
+
+                    /*List<ListItem> defaultListItem = databaseHelper.getDefaultItems();
+                    listitem_travel = new ArrayList<>();
+
+                    for (int i=0; i<defaultListItem.size(); i++){
+                        ListItem listItem = defaultListItem.get(i);
+                        if (listItem.getCategoryName().equals("TRAVEL")){
+                            listitem_travel.add(listItem);
+                        }
+                    }*/
+                } else if (categoryItemList.get(position).getCategoryName().equals("Ruha")){
+                    ItemListAdapter itemAdapter_clothes = new ItemListAdapter(listitem_clothes, null);
+                    listItems.setAdapter(itemAdapter_clothes);
+                }
+            }
+        });
+
+        categoryItems.setAdapter(categoryListAdapter);
+
+
+
+
+
+
+
+
+
+
+        //ItemListAdapter itemAdapter_travel = new ItemListAdapter(listitem_travel, null);
         /*itemAdapter_travel.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -96,43 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        CategoryListAdapter categoryListAdapter = new CategoryListAdapter(categoryItemList, this);
 
-        categoryListAdapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(int position) {
-                categoryItemList.get(position);
-
-
-                if (categoryItemList.get(position).getCategoryName().equals("Összes")) {
-
-                    listItems.setAdapter(itemListAdapter3);
-
-                } else if (categoryItemList.get(position).getCategoryName().equals("Utazás")){
-                    List<ListItem> defaultListItem = databaseHelper.getDefaultItems();
-                    adapter_travel = new ArrayList<>();
-
-                    for (int i=0; i<defaultListItem.size(); i++){
-                        ListItem listItem = defaultListItem.get(i);
-                        if (listItem.getCategoryName().equals("TRAVEL")){
-                            adapter_travel.add(listItem);
-                        }
-                    }
-                    ItemListAdapter itemAdapter_travel = new ItemListAdapter(adapter_travel, null);
-                    listItems.setAdapter(itemAdapter_travel);
-                }
-
-
-
-                //categoryItemList.add(new CategoryItem(6,"Kórház",R.mipmap.icon_hospital_foreground));
-                //categoryItemList.add(new CategoryItem(7,"Ruha",R.mipmap.icon_babyclothes_foreground));
-                //categoryListAdapter.notifyItemChanged(position);
-            }
-        });
-
-        categoryItems.setAdapter(categoryListAdapter);
-        //listItems.setAdapter(itemAdapter_travel);
 
 
 

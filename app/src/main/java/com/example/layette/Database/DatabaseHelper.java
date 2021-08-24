@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import com.example.layette.Model.CategoryItem;
+import com.example.layette.Model.DefaultCategoryItemList;
+import com.example.layette.Model.DefaultItemList;
 import com.example.layette.Model.ListItem;
 import com.example.layette.R;
 import java.util.ArrayList;
@@ -79,6 +81,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     // CATEGORY ITEMS
+
+        public void addDefaultCategoryItems(){
+            DefaultCategoryItemList defaultCategoryItemList = DefaultCategoryItemList.getInstance();
+            List<CategoryItem> categoryItemList = defaultCategoryItemList.getDefaultCategoryItems();
+            SQLiteDatabase database = this.getWritableDatabase();
+
+            for (int i=0; i<categoryItemList.size(); i++){
+                ContentValues values = new ContentValues();
+                values.put(KEY_CATEGORYITEM_NAME, categoryItemList.get(i).getCategoryName());
+                values.put(KEY_CATEGORYITEM_IMAGE, categoryItemList.get(i).getCategoryImage());
+                database.insert(TABLE_CATEGORYITEM,null,values);
+            }
+        }
+
+        public void addDefaultItems(){
+            DefaultItemList defaultItemList = DefaultItemList.getInstance();
+            List<ListItem> itemsList = defaultItemList.getDefaultListItems();
+            SQLiteDatabase database = this.getWritableDatabase();
+
+            for (int i=0; i<itemsList.size(); i++){
+                ContentValues values = new ContentValues();
+                values.put(KEY_LISTITEM_NAME, itemsList.get(i).getItemName());
+                values.put(KEY_LISTITEM_CATEGORYNAME, itemsList.get(i).getCategoryName());
+                values.put(KEY_LISTITEM_ISDEFAULT, 1);
+                values.put(KEY_LISTITEM_ISCHECKED, 0);
+                database.insert(TABLE_LISTITEM, null, values);
+            }
+        }
+
+
 
         public void addCategoryItem(String name, int image){
         SQLiteDatabase database = this.getWritableDatabase();
@@ -187,7 +219,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         public ListItem getItem(int itemId){
-            String query = String.format("SELECT * FROM " + TABLE_LISTITEM + " WHERE " + KEY_LISTITEM_ID + " = ?", new String[]{String.valueOf(itemId)});
+            String query = String.format("SELECT * FROM " + TABLE_LISTITEM + " WHERE " + KEY_LISTITEM_ID + " = ?", new int[]{itemId});
             SQLiteDatabase database = this.getWritableDatabase();
             Cursor cursor = database.rawQuery(query, null);
             ListItem listItem = null;

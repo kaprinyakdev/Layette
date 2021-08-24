@@ -49,10 +49,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
     @Override
     public void onBindViewHolder(@NonNull ItemListAdapter.ItemListHolder holder, int position) {
 
-        Log.i("qwe","qwe");
         ListItem listItem = listItemList.get(position);
-        //ListItem listItem1 = databaseHelper.getItem(listItem.getItemId());
-        holder.itemChecked.setChecked(!listItem.isItemChecked());
+        ListItem listItem2 = databaseHelper.getItem(listItem.getItemId());
+
+        Log.i("code",String.valueOf(holder.itemChecked.isChecked()));
+        //Log.i("db",String.valueOf(listItem2.isItemChecked()));
+
+        holder.itemChecked.setChecked(listItem.isItemChecked());
+
         holder.itemChecked.setText(listItem.getItemName());
 
         holder.itemChecked.setOnClickListener(view -> {
