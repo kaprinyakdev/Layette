@@ -3,6 +3,8 @@ package com.example.layette;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.ClipData;
 import android.os.Bundle;
 import android.util.Log;
 import com.example.layette.Adapter.CategoryListAdapter;
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     LinearLayoutManager layoutManager2;
     DatabaseHelper databaseHelper;
-    List<ListItem> listitem_travel, listitem_hospital, listitem_clothes;
+    List<ListItem> listitem_travel, listitem_hospital, listitem_clothes, listitem_sleep;
 
 
     @Override
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         listitem_travel = new ArrayList<>();
         listitem_hospital = new ArrayList<>();
         listitem_clothes = new ArrayList<>();
+        listitem_sleep = new ArrayList<>();
 
         for (int i=0; i<defaultListItem.size(); i++){
             ListItem listItem = defaultListItem.get(i);
@@ -76,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "CLOTHES":
                     listitem_clothes.add(listItem);
+                    break;
+                case "SLEEP":
+                    listitem_sleep.add(listItem);
                     break;
             }
 
@@ -118,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
                 } else if (categoryItemList.get(position).getCategoryName().equals("Ruha")){
                     ItemListAdapter itemAdapter_clothes = new ItemListAdapter(listitem_clothes, null);
                     listItems.setAdapter(itemAdapter_clothes);
+                } else if (categoryItemList.get(position).getCategoryName().equals("Alvás")){
+                    ItemListAdapter itemAdapter_sleep = new ItemListAdapter(listitem_sleep,null);
+                    listItems.setAdapter(itemAdapter_sleep);
+                } else if (categoryItemList.get(position).getCategoryName().equals("Összes")){
+                    ItemListAdapter itemAdapter_sum = new ItemListAdapter(defaultListItem, null);
+                    listItems.setAdapter(itemAdapter_sum);
                 }
             }
         });

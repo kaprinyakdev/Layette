@@ -61,6 +61,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
 
         holder.itemChecked.setOnClickListener(view -> {
                 databaseHelper.updateItem(listItem.getItemId(), holder.itemChecked.isChecked());
+
             }
         );
 

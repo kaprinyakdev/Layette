@@ -12,10 +12,11 @@ public class DefaultCategoryItemList {
 
     private DefaultCategoryItemList(){
         itemList = new ArrayList<>();
-        itemList.add(new CategoryItem(1,"Összes", R.mipmap.icon_summary_foreground));
-        itemList.add(new CategoryItem(2,"Kórház", R.mipmap.icon_hospital_foreground));
-        itemList.add(new CategoryItem(3,"Ruha", R.mipmap.icon_babyclothes_foreground));
-        itemList.add(new CategoryItem(4,"Utazás", R.mipmap.icon_travel_foreground));
+        itemList.add(new CategoryItem(1, "Összes", R.mipmap.icon_summary_foreground));
+        itemList.add(new CategoryItem(1,"Kórház", R.mipmap.icon_hospital_foreground));
+        itemList.add(new CategoryItem(1,"Ruha", R.mipmap.icon_babyclothes_foreground));
+        itemList.add(new CategoryItem(1,"Alvás", R.mipmap.icon_babyclothes_foreground));
+        itemList.add(new CategoryItem(1,"Utazás", R.mipmap.icon_travel_foreground));
     }
 
     public static DefaultCategoryItemList getInstance(){
