@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(int position) {
                 //categoryItemList.get(position);
 
+
                 if (categoryItemList.get(position).getCategoryName().equals("Kórház")) {
                     ItemListAdapter itemAdapter_hospital = new ItemListAdapter(listitem_hospital,null);
                     listItems.setAdapter(itemAdapter_hospital);
