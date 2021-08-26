@@ -89,76 +89,57 @@ public class MainActivity extends AppCompatActivity {
 
         CategoryListAdapter categoryListAdapter = new CategoryListAdapter(categoryItemList, this);
 
-        categoryListAdapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
+        categoryListAdapter.setOnItemClickListener(position -> {
 
-            @Override
-            public void onItemClick(int position) {
-                //categoryItemList.get(position);
+            if (categoryItemList.get(position).getCategoryName().equals("Kórház")) {
+                // sort
+
+               /* Collections.sort(listitem_hospital, new Comparator<ListItem>() {
+
+                    @Override
+                    public int compare(ListItem o1, ListItem o2) {
+                        return o1.getItemName().compareTo(o2.getItemName());
+                    }
+                });
+*/
 
 
-                if (categoryItemList.get(position).getCategoryName().equals("Kórház")) {
-                    ItemListAdapter itemAdapter_hospital = new ItemListAdapter(listitem_hospital,null);
-                    listItems.setAdapter(itemAdapter_hospital);
+                ItemListAdapter itemAdapter_hospital = new ItemListAdapter(listitem_hospital,null);
+                listItems.setAdapter(itemAdapter_hospital);
 
-                } else if (categoryItemList.get(position).getCategoryName().equals("Utazás")){
-                    ItemListAdapter itemAdapter_travel = new ItemListAdapter(listitem_travel, null);
-                    /*itemAdapter_travel.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
-                          @Override
-                          public void onItemClick(int position) {
-                              boolean isChecked = listitem_travel.get(position).isItemChecked();
-                              databaseHelper.updateItem(listitem_travel.get(position).getItemId(), isChecked);
-                              itemAdapter_travel.notifyDataSetChanged();
-                              Log.i("qwe", "qwe");
-                          }
-                      });*/
-                    listItems.setAdapter(itemAdapter_travel);
+            } else if (categoryItemList.get(position).getCategoryName().equals("Utazás")){
+                Collections.sort(listitem_travel, new Comparator<ListItem>() {
 
-                    /*List<ListItem> defaultListItem = databaseHelper.getDefaultItems();
-                    listitem_travel = new ArrayList<>();
+                    @Override
+                    public int compare(ListItem o1, ListItem o2) {
+                        return o1.getItemName().compareTo(o2.getItemName());
+                    }
+                });
+                ItemListAdapter itemAdapter_travel = new ItemListAdapter(listitem_travel, null);
+                listItems.setAdapter(itemAdapter_travel);
 
-                    for (int i=0; i<defaultListItem.size(); i++){
-                        ListItem listItem = defaultListItem.get(i);
-                        if (listItem.getCategoryName().equals("TRAVEL")){
-                            listitem_travel.add(listItem);
-                        }
-                    }*/
-                } else if (categoryItemList.get(position).getCategoryName().equals("Ruha")){
-                    ItemListAdapter itemAdapter_clothes = new ItemListAdapter(listitem_clothes, null);
-                    listItems.setAdapter(itemAdapter_clothes);
-                } else if (categoryItemList.get(position).getCategoryName().equals("Alvás")){
-                    ItemListAdapter itemAdapter_sleep = new ItemListAdapter(listitem_sleep,null);
-                    listItems.setAdapter(itemAdapter_sleep);
-                } else if (categoryItemList.get(position).getCategoryName().equals("Összes")){
-                    ItemListAdapter itemAdapter_sum = new ItemListAdapter(defaultListItem, null);
-                    listItems.setAdapter(itemAdapter_sum);
-                }
+            } else if (categoryItemList.get(position).getCategoryName().equals("Ruha")){
+                ItemListAdapter itemAdapter_clothes = new ItemListAdapter(listitem_clothes, null);
+                listItems.setAdapter(itemAdapter_clothes);
+
+            } else if (categoryItemList.get(position).getCategoryName().equals("Alvás")){
+                ItemListAdapter itemAdapter_sleep = new ItemListAdapter(listitem_sleep,null);
+                listItems.setAdapter(itemAdapter_sleep);
+
+            } else if (categoryItemList.get(position).getCategoryName().equals("Összes")){
+                Collections.sort(defaultListItem, new Comparator<ListItem>() {
+
+                    @Override
+                    public int compare(ListItem o1, ListItem o2) {
+                        return o1.getItemName().compareTo(o2.getItemName());
+                    }
+                });
+                ItemListAdapter itemAdapter_sum = new ItemListAdapter(defaultListItem, null);
+                listItems.setAdapter(itemAdapter_sum);
             }
         });
 
         categoryItems.setAdapter(categoryListAdapter);
-
-
-
-
-
-
-
-
-
-
-        //ItemListAdapter itemAdapter_travel = new ItemListAdapter(listitem_travel, null);
-        /*itemAdapter_travel.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                boolean isChecked = adapter_travel.get(position).isItemChecked();
-                databaseHelper.updateItem(adapter_travel.get(position).getItemId(),isChecked);
-                itemAdapter_travel.notifyDataSetChanged();
-                Log.i("qwe","qwe");
-            }
-        });*/
-
-
-
 
         ItemListAdapter itemListAdapter3 = new ItemListAdapter(defaultListItem, this);
 
@@ -169,10 +150,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-
-
-
 
 
         /*
