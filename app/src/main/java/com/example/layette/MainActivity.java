@@ -14,6 +14,8 @@ import com.example.layette.Model.CategoryItem;
 import com.example.layette.Model.DefaultCategoryItemList;
 import com.example.layette.Model.DefaultItemList;
 import com.example.layette.Model.ListItem;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     LinearLayoutManager layoutManager2;
     DatabaseHelper databaseHelper;
-    List<ListItem> listitem_travel, listitem_hospital, listitem_clothes, listitem_sleep;
+    List<ListItem> listitem_travel, listitem_hospital, listitem_clothes, listitem_sleep, listitem_room;
 
 
     @Override
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         listitem_hospital = new ArrayList<>();
         listitem_clothes = new ArrayList<>();
         listitem_sleep = new ArrayList<>();
+        listitem_room = new ArrayList();
 
         for (int i=0; i<defaultListItem.size(); i++){
             ListItem listItem = defaultListItem.get(i);
@@ -82,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "SLEEP":
                     listitem_sleep.add(listItem);
+                    break;
+                case "ROOM":
+                    listitem_room.add(listItem);
                     break;
             }
 
@@ -112,9 +118,21 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public int compare(ListItem o1, ListItem o2) {
-                        return o1.getItemName().compareTo(o2.getItemName());
+                        int c;
+                        boolean checked = o1.isItemChecked() == o2.isItemChecked();
+                        if (checked){
+                            c = 0;
+                        } else
+                            c = 1;
+
+                        /*if (c == 0){
+                            c = o1.getItemName().compareTo(o2.getItemName());
+                        }*/
+                        return c;
+                        //return o1.getItemName().compareTo(o2.getItemName());
                     }
                 });
+
                 ItemListAdapter itemAdapter_travel = new ItemListAdapter(listitem_travel, null);
                 listItems.setAdapter(itemAdapter_travel);
 
@@ -122,7 +140,13 @@ public class MainActivity extends AppCompatActivity {
                 ItemListAdapter itemAdapter_clothes = new ItemListAdapter(listitem_clothes, null);
                 listItems.setAdapter(itemAdapter_clothes);
 
-            } else if (categoryItemList.get(position).getCategoryName().equals("Alvás")){
+            }
+            else if (categoryItemList.get(position).getCategoryName().equals("Babaszoba")){
+                ItemListAdapter itemAdapter_room = new ItemListAdapter(listitem_room,null);
+                listItems.setAdapter(itemAdapter_room);
+            }
+
+            else if (categoryItemList.get(position).getCategoryName().equals("Alvás")){
                 ItemListAdapter itemAdapter_sleep = new ItemListAdapter(listitem_sleep,null);
                 listItems.setAdapter(itemAdapter_sleep);
 

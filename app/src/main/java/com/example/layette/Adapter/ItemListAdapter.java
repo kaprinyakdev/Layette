@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.layette.Database.DatabaseHelper;
 import com.example.layette.Model.ListItem;
 import com.example.layette.R;
+
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemListHolder> {
@@ -53,15 +56,17 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
         ListItem listItem2 = databaseHelper.getItem(listItem.getItemId());
 
         Log.i("code",String.valueOf(holder.itemChecked.isChecked()));
-        //Log.i("db",String.valueOf(listItem2.isItemChecked()));
 
         holder.itemChecked.setChecked(listItem.isItemChecked());
 
         holder.itemChecked.setText(listItem.getItemName());
 
+
         holder.itemChecked.setOnClickListener(view -> {
                 databaseHelper.updateItem(listItem.getItemId(), holder.itemChecked.isChecked());
                 listItem.setItemChecked(holder.itemChecked.isChecked());
+
+
             }
         );
 
