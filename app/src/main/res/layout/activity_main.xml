@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
+    android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_background">
 
         <LinearLayout
             android:id="@+id/linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView"
@@ -48,9 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="@drawable/gradient_background"
-            app:layout_constraintEnd_toEndOf="@+id/linearlayout"
-            app:layout_constraintStart_toStartOf="@+id/linearlayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearlayout" />
+            android:layout_below="@id/linearlayout"/>
 
         <TextView
             android:id="@+id/textview_items"
@@ -63,20 +53,23 @@
             android:letterSpacing="0.1"
             android:textColor="@color/black"
             android:fontFamily="@font/poppins"
-            app:layout_constraintEnd_toEndOf="@+id/category_list"
-            app:layout_constraintStart_toStartOf="@+id/category_list"
-            app:layout_constraintTop_toBottomOf="@+id/category_list"/>
+            android:layout_below="@id/category_list"/>
 
-        <androidx.cardview.widget.CardView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:elevation="10dp"
-            app:cardBackgroundColor="@color/paperwhite"
-            app:cardCornerRadius="6dp"
-            app:layout_constraintEnd_toEndOf="@+id/textview_items"
-            app:layout_constraintStart_toStartOf="@+id/textview_items"
-            app:layout_constraintTop_toBottomOf="@+id/textview_items" >
+            android:layout_marginBottom="50dp"
+            android:id="@+id/scroll"
+            android:layout_below="@id/textview_items">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginBottom="120dp"
+                    android:elevation="10dp"
+                    app:cardBackgroundColor="@color/paperwhite"
+                    app:cardCornerRadius="6dp" >
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/item_list"
@@ -88,9 +81,10 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="20dp"
-                            android:scrollbars="vertical"/>
-        </androidx.cardview.widget.CardView>
+                            android:scrollbars="vertical"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbarAlwaysDrawVerticalTrack="true" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+                </androidx.cardview.widget.CardView>
+        </ScrollView>
+</RelativeLayout>

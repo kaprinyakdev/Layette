@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         itemListAdapter3.setOnItemClickListener(new ItemListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Log.i("asd","dsa");
+
             }
 
         });
