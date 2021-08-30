@@ -1,12 +1,11 @@
 package com.example.layette;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.ClipData;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
 import com.example.layette.Adapter.CategoryListAdapter;
 import com.example.layette.Adapter.ItemListAdapter;
 import com.example.layette.Database.DatabaseHelper;
@@ -14,14 +13,13 @@ import com.example.layette.Model.CategoryItem;
 import com.example.layette.Model.DefaultCategoryItemList;
 import com.example.layette.Model.DefaultItemList;
 import com.example.layette.Model.ListItem;
-
-import java.lang.reflect.Array;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView categoryItems;
     RecyclerView listItems;
@@ -29,12 +27,27 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager2;
     DatabaseHelper databaseHelper;
     List<ListItem> listitem_travel, listitem_hospital, listitem_clothes, listitem_sleep, listitem_room;
+    fragment_menu_defaultitems menu_defaultitems = new fragment_menu_defaultitems();
+    fragment_menu_customitems menu_customitems = new fragment_menu_customitems();
+    fragment_menu_settings menu_settings = new fragment_menu_settings();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+         /*
+            - progress bar a megjelölt tételekről
+            - kattintáskor a kijelölt alulra kerüljön
+            - valamilyen menürendszer:
+                alul 3 menü: beépített, saját, beállítások (téma, )
+            - excelben letölteni
+
+         */
+
 
         databaseHelper = DatabaseHelper.getInstance(this);
         //databaseHelper.addDefaultCategoryItems();
@@ -176,14 +189,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /*
-
-            - kattintáskor a kijelölt alulra kerüljön
-            - valamilyen menürendszer:
-                alul 3 menü: beépített, saját, beállítások (téma, )
-
-         */
 
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_default:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, menu_defaultitems).commit();
+                return true;
+
+            case R.id.menu_own:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, menu_customitems).commit();
+                return true;
+
+            case R.id.menu_settings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, menu_settings).commit();
+                return true;
+        }
+        return false;
+    }
 }

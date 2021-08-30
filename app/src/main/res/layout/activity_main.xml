@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/categoryitem_background"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -19,19 +19,15 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
-                    android:gravity="center"
-                    android:text="Categories"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.1"
-                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:layout_weight="10"
                     android:fontFamily="@font/poppins"
-                    android:layout_weight="10"/>
+                    android:gravity="center"
+                    android:letterSpacing="0"
+                    android:text="Categories"
+                    android:textColor="@color/white"
+                    android:textSize="33sp"
+                    android:textStyle="bold" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -39,28 +35,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/gradient_background"
             android:layout_below="@id/linearlayout"/>
 
-        <TextView
-            android:id="@+id/textview_items"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearlayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Items"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.1"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins"
-            android:layout_below="@id/category_list"/>
+            android:layout_below="@id/category_list"
+            android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textview_items"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:letterSpacing="0"
+                    android:text="Items"
+                    android:textColor="@color/white"
+                    android:textSize="33sp"
+                    android:textStyle="bold"/>
+
+        </LinearLayout>
+
+
 
         <ScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:id="@+id/scroll"
-            android:layout_below="@id/textview_items">
+            android:layout_below="@id/linearlayout2">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -87,4 +93,13 @@
 
                 </androidx.cardview.widget.CardView>
         </ScrollView>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/bottom_navigationbar_menu"/>
+
+
 </RelativeLayout>

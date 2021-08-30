@@ -80,7 +80,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
                 super(v);
                 categoryName = v.findViewById(R.id.categoryName);
                 categoryImage = v.findViewById(R.id.categoryImage);
-                category_item_background = v.findViewById(R.id.category_item_background);
+                //category_item_background = v.findViewById(R.id.category_item_background);
                 cardView = v.findViewById(R.id.cardView);
 
                 v.setOnClickListener(new View.OnClickListener(){
