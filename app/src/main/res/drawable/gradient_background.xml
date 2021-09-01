@@ -2,13 +2,26 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
 
+        <!-- LILA KÉK-->
+        <!-- <shape>
+             <gradient
+                 android:startColor="#74459A"
+                 android:endColor="#3e44e5"
+                 android:type="linear"
+                 android:angle="200"
+                 />
+         </shape>-->
+
+
+         <!-- LILA KÉK-->
         <shape>
             <gradient
-                android:startColor="#74459A"
-                android:endColor="#3e44e5"
+                android:startColor="#FFFFFF"
+                android:endColor="#ECE9E6"
                 android:type="linear"
                 android:angle="200"
                 />
         </shape>
+
     </item>
 </selector>

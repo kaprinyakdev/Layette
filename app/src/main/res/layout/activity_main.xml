@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/categoryitem_background"
     android:orientation="vertical"
+    android:theme="@style/Theme.Layette"
     tools:context=".MainActivity">
 
         <LinearLayout
@@ -73,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:layout_marginBottom="120dp"
-                    android:elevation="10dp"
+                    android:elevation="8dp"
                     app:cardBackgroundColor="@color/paperwhite"
                     app:cardCornerRadius="6dp" >
 
@@ -93,13 +94,4 @@
 
                 </androidx.cardview.widget.CardView>
         </ScrollView>
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            app:menu="@menu/bottom_navigationbar_menu"/>
-
-
 </RelativeLayout>

@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     RecyclerView categoryItems;
     RecyclerView listItems;
@@ -187,26 +187,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
 
         });
-
-
-
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_default:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, menu_defaultitems).commit();
-                return true;
-
-            case R.id.menu_own:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, menu_customitems).commit();
-                return true;
-
-            case R.id.menu_settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, menu_settings).commit();
-                return true;
-        }
-        return false;
     }
 }
