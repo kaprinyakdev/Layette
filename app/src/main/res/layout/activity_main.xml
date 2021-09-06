@@ -26,9 +26,17 @@
                     android:gravity="center"
                     android:letterSpacing="0"
                     android:text="Categories"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="33sp"
                     android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/settings_button"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_settings_foreground"/>
+
+
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -54,7 +62,7 @@
                     android:gravity="center"
                     android:letterSpacing="0"
                     android:text="Items"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="33sp"
                     android:textStyle="bold"/>
 

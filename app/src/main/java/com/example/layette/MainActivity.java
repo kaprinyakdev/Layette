@@ -1,11 +1,11 @@
 package com.example.layette;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.widget.ImageView;
+
 import com.example.layette.Adapter.CategoryListAdapter;
 import com.example.layette.Adapter.ItemListAdapter;
 import com.example.layette.Database.DatabaseHelper;
@@ -13,7 +13,6 @@ import com.example.layette.Model.CategoryItem;
 import com.example.layette.Model.DefaultCategoryItemList;
 import com.example.layette.Model.DefaultItemList;
 import com.example.layette.Model.ListItem;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager2;
     DatabaseHelper databaseHelper;
     List<ListItem> listitem_travel, listitem_hospital, listitem_clothes, listitem_sleep, listitem_room;
-    fragment_menu_defaultitems menu_defaultitems = new fragment_menu_defaultitems();
-    fragment_menu_customitems menu_customitems = new fragment_menu_customitems();
-    fragment_menu_settings menu_settings = new fragment_menu_settings();
+    ImageView settings_button;
 
 
     @Override
@@ -48,22 +45,21 @@ public class MainActivity extends AppCompatActivity {
 
          */
 
+        settings_button = findViewById(R.id.settings_button);
 
         databaseHelper = DatabaseHelper.getInstance(this);
-        //databaseHelper.addDefaultCategoryItems();
-        //databaseHelper.addDefaultItems();
 
         // KATEGÓRIA
-            categoryItems = findViewById(R.id.category_list);
-            layoutManager = new LinearLayoutManager(this);
-            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            categoryItems.setLayoutManager(layoutManager);
+        categoryItems = findViewById(R.id.category_list);
+        layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        categoryItems.setLayoutManager(layoutManager);
 
         // TÉTELEK
-            listItems = findViewById(R.id.item_list);
-            layoutManager2 = new LinearLayoutManager(this);
-            layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
-            listItems.setLayoutManager(layoutManager2);
+        listItems = findViewById(R.id.item_list);
+        layoutManager2 = new LinearLayoutManager(this);
+        layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+        listItems.setLayoutManager(layoutManager2);
 
         // HA ELSŐ HASZNÁLAT, AKKOR ADATBÁZISBAN RÖGZÍTJÜK AZ ALAPÉRTELMEZETT KATEGÓRIÁKAT ÉS TÉTELEKET
         if (databaseHelper.isFirstUse()){
@@ -76,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         // ALAPÉRTELMEZETT KATEGÓRIÁK ÉS TÉTELEK LEKÉRDEZÉSE
         List<CategoryItem> categoryItemList = databaseHelper.getCategoryItemList();
         List<ListItem> defaultListItem = databaseHelper.getDefaultItems();
-
 
         listitem_travel = new ArrayList<>();
         listitem_hospital = new ArrayList<>();
@@ -174,6 +169,11 @@ public class MainActivity extends AppCompatActivity {
                 ItemListAdapter itemAdapter_sum = new ItemListAdapter(defaultListItem, null);
                 listItems.setAdapter(itemAdapter_sum);
             }
+        });
+
+        settings_button.setOnClickListener(v -> {
+
+
         });
 
         categoryItems.setAdapter(categoryListAdapter);
