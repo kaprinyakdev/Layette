@@ -18,10 +18,6 @@ public class DefaultItemList {
             itemList.add(new ListItem(1,"Babahordozó",false,true,"TRAVEL"));
             itemList.add(new ListItem(1,"Pelenkázó táska",false,true,"TRAVEL"));
 
-        // SLEEP
-            itemList.add(new ListItem(1, "Kiságy",false,true,"SLEEP"));
-            itemList.add(new ListItem(1, "Matrac",false,true,"SLEEP"));
-
         // CLOTHES
             itemList.add(new ListItem(1,"Body",false,true,"CLOTHES"));
 
@@ -32,7 +28,7 @@ public class DefaultItemList {
         // ROOM
             itemList.add(new ListItem(1,"Kiságy vagy kombiágy",false, true, "ROOM"));
             itemList.add(new ListItem(1,"Matrac (kókusz vagy szivacs)",false, true, "ROOM"));
-            itemList.add(new ListItem(1,"Matracvédő",false, true, "ROOM"));
+            itemList.add(new ListItem(1,"Matracvédő (2-3 db)",false, true, "ROOM"));
             itemList.add(new ListItem(1,"Lepedő (2-3 db)",false, true, "ROOM"));
             itemList.add(new ListItem(1,"Ágyneműgarnitúra (2-3 db)",false, true, "ROOM"));
             itemList.add(new ListItem(1,"Éjjeli fény",false, true, "ROOM"));
@@ -40,20 +36,11 @@ public class DefaultItemList {
             itemList.add(new ListItem(1,"Pelenkázó komód",false, true, "ROOM"));
             itemList.add(new ListItem(1,"Pelenkázó lap",false, true, "ROOM"));
             itemList.add(new ListItem(1,"Pelenkatároló szemetes",false, true, "ROOM"));
-
-
-        itemList.add(new ListItem(1,"Matrac (kókusz vagy szivacs) Matrac (kókusz vagy szivacs) Matrac (kókusz vagy szivacs)",false, true, "ROOM"));
-        itemList.add(new ListItem(1,"Matracvédő",false, true, "ROOM"));
-        itemList.add(new ListItem(1,"Lepedő (2-3 db)",false, true, "ROOM"));
-        itemList.add(new ListItem(1,"Ágyneműgarnitúra (2-3 db)",false, true, "ROOM"));
-        itemList.add(new ListItem(1,"Éjjeli fény",false, true, "ROOM"));
-        itemList.add(new ListItem(1,"Szekrény",false, true, "ROOM"));
-        itemList.add(new ListItem(1,"Pelenkázó komód",false, true, "ROOM"));
-        itemList.add(new ListItem(1,"Pelenkázó lap",false, true, "ROOM"));
-        itemList.add(new ListItem(1,"Pelenkatároló szemetes",false, true, "ROOM"));
-
-
-
+            itemList.add(new ListItem(1,"Rácsvédő",false, true, "ROOM"));
+            itemList.add(new ListItem(1,"Babatakaró (3 db)",false, true, "ROOM"));
+            itemList.add(new ListItem(1,"Hálózsák (3 db)",false, true, "ROOM"));
+            itemList.add(new ListItem(1,"Légzésfigyelő",false, true, "ROOM"));
+            itemList.add(new ListItem(1,"Bébiőr",false, true, "ROOM"));
 
 
 

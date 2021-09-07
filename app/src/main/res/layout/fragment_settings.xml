@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.Layette.Settings">
+
+    <Switch
+        android:id="@+id/darkmode_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dark mode"
+        android:fontFamily="@font/poppins"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"/>
+
+    <TextView
+        android:id="@+id/export_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Excel export"
+        android:layout_below="@id/darkmode_switch"
+        android:fontFamily="@font/poppins"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="30dp"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_toEndOf="@id/export_text"
+        android:layout_toRightOf="@id/export_text"
+        android:src="@mipmap/icon_excel_foreground" />
+
+</RelativeLayout>

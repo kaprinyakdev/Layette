@@ -2,9 +2,10 @@
 
     <string name="app_name">Layette</string>
 
+
+    <string name="header_category">Categories</string>
+
     <string name="category_sum">All</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

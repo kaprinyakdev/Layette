@@ -1,11 +1,15 @@
 package com.example.layette;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
-
 import com.example.layette.Adapter.CategoryListAdapter;
 import com.example.layette.Adapter.ItemListAdapter;
 import com.example.layette.Database.DatabaseHelper;
@@ -27,14 +31,26 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     List<ListItem> listitem_travel, listitem_hospital, listitem_clothes, listitem_sleep, listitem_room;
     ImageView settings_button;
+    SharedPreferences darkModeState;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        darkModeState = getSharedPreferences("darkmode", Context.MODE_PRIVATE);
+        boolean isNightModeActive = darkModeState.getBoolean("darkmode",false);
+
+        if (isNightModeActive) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
+
+
+
+
         setContentView(R.layout.activity_main);
-
-
 
          /*
             - progress bar a megjelölt tételekről
@@ -173,6 +189,9 @@ public class MainActivity extends AppCompatActivity {
 
         settings_button.setOnClickListener(v -> {
 
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            DialogFragment popupWindow = new SettingsFragment();
+            popupWindow.show(ft,"");
 
         });
 
