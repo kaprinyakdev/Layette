@@ -16,11 +16,14 @@
         <entry key="..\:/Android/Layette/app/src/main/res/layout/list_item.xml" value="0.115625" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/drawable/categoryitem_background.xml" value="0.2890625" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/drawable/gradient_background.xml" value="0.24791666666666667" />
+        <entry key="..\:/Program/Android/Layette/app/src/main/res/drawable/header_background.xml" value="0.3796875" />
+        <entry key="..\:/Program/Android/Layette/app/src/main/res/drawable/icon_clothes_background.xml" value="0.3796875" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/drawable/icon_excel_background.xml" value="0.24791666666666667" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/drawable/main_background_darkmode_off.xml" value="0.23333333333333334" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/drawable/main_background_darkmode_on.xml" value="0.23333333333333334" />
+        <entry key="..\:/Program/Android/Layette/app/src/main/res/font/a.xml" value="0.39375" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Program/Android/Layette/app/src/main/res/layout/category_item.xml" value="0.33" />
+        <entry key="..\:/Program/Android/Layette/app/src/main/res/layout/category_item.xml" value="0.67" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/layout/fragment_menu_settings.xml" value="0.264" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/layout/fragment_settings.xml" value="0.5" />
         <entry key="..\:/Program/Android/Layette/app/src/main/res/layout/list_item.xml" value="0.3148148148148148" />

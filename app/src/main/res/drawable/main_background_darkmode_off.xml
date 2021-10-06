@@ -15,8 +15,8 @@
         <!-- FEHÉRES-->
         <shape>
             <gradient
-                android:startColor="#FFFFFF"
-                android:endColor="#ECE9E6"
+                android:startColor="#f9d685"
+                android:endColor="#f4b41a"
                 android:type="linear"
                 android:angle="200"/>
         </shape>

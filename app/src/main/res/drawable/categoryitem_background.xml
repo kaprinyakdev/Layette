@@ -2,14 +2,14 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
 
-        <!-- VILÁGOS KÉK
+        <!-- VILÁGOS KÉK-->
         <shape>
             <gradient
-                android:startColor="#00B4DB"
-                android:endColor="#0083B0"
+                android:startColor="#f4ae0b"
+                android:endColor="#db9d0a"
                 android:type="linear"
                 android:angle="200"/>
-        </shape>-->
+        </shape>
 
 
         <!-- FEHÉRES-->

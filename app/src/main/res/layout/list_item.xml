@@ -15,6 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_text"
         android:fontFamily="@font/poppins"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

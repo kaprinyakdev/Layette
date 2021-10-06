@@ -7,46 +7,61 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:theme="@style/Theme.Layette.MainBackground">
+    android:background="@drawable/main_background_darkmode_off">
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:fontFamily="@font/ephesis"
+            android:textSize="48sp"
+            android:text="Babakelengye lista"
+            android:textColor="@color/blue_text" />
 
         <LinearLayout
             android:id="@+id/linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_below="@id/text3"
+            android:background="@drawable/header_background">
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_weight="10"
-                    android:gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:textColor="@color/blue_text"
+                    android:gravity="left"
                     android:letterSpacing="0"
-                    android:text="@string/header_category"
-                    android:textStyle="bold" />
+                    android:textSize="20sp"
+                    android:text="@string/header_category"/>
 
                 <ImageView
                     android:id="@+id/settings_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@mipmap/icon_settings_foreground"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_list"
-            android:theme="@style/Theme.Layette.RecyclerView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/linearlayout"/>
+            android:layout_below="@id/linearlayout"
+            android:theme="@style/Theme.Layette.RecyclerView" />
 
         <LinearLayout
             android:id="@+id/linearlayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/category_list"
+            android:background="@drawable/header_background"
             android:orientation="horizontal">
 
                 <TextView
@@ -54,13 +69,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
                     android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:letterSpacing="0"
                     android:text="Items"
-                    android:textColor="@color/black"
-                    android:textSize="33sp"
-                    android:textStyle="bold"/>
+                    android:textColor="@color/blue_text"
+                    android:textSize="20sp" />
 
         </LinearLayout>
 
